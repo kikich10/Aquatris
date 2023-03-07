@@ -33,6 +33,42 @@ const int tetromino_O[4][4] = {
     {0, 1, 1, 0},
     {0, 0, 0, 0}
 };
+
+const int tetromino_T[4][4] = {
+    {0, 0, 0, 0},
+    {0, 1, 1, 1},
+    {0, 0, 1, 0},
+    {0, 0, 0, 0}
+};
+
+const int tetromino_S[4][4] = {
+    {0, 0, 0, 0},
+    {0, 0, 1, 1},
+    {0, 1, 1, 0},
+    {0, 0, 0, 0}
+};
+
+const int tetromino_Z[4][4] = {
+    {0, 0, 0, 0},
+    {1, 1, 0, 0},
+    {0, 1, 1, 0},
+    {0, 0, 0, 0}
+};
+
+const int tetromino_L[4][4] = {
+    {0, 0, 0, 0},
+    {0, 1, 1, 1},
+    {0, 1, 0, 0},
+    {0, 0, 0, 0}
+};
+
+const int tetromino_J[4][4] = {
+    {0, 0, 0, 0},
+    {0, 1, 1, 1},
+    {0, 0, 0, 1},
+    {0, 0, 0, 0}
+};
+
 // ---------------------------- FONCTIONS-----------------------------------------------------------------------------------------
 // fonction poke
 void poke( uint16_t addr, uint8_t value )
@@ -104,21 +140,47 @@ void rotate_tetromino(int tetromino[4][4])
             tetromino[i][j] = temp[i][j];
         }
     }
+}
 void changetetro(char tetronimos)// Copie du tetromino source dans le tetronimo actuel
 {
+    switch (tetronimos)
+    {
+    case 0:
+        memcpy(tetrominoactuel, tetromino_I, sizeof(tetromino_I));
+        break;
     
-    memcpy(tetrominoactuel, tetromino_I, sizeof(tetromino_I));
+    case 1:
+        memcpy(tetrominoactuel, tetromino_O, sizeof(tetromino_O));
+        break;
+    case 2:
+        memcpy(tetrominoactuel, tetromino_T, sizeof(tetromino_T));
+        break;
+    case 3:
+        memcpy(tetrominoactuel, tetromino_S, sizeof(tetromino_S));
+        break;
+    case 4:
+        memcpy(tetrominoactuel, tetromino_Z, sizeof(tetromino_Z));
+        break;
+    case 5:
+        memcpy(tetrominoactuel, tetromino_L, sizeof(tetromino_L));
+        break;
+    case 6:
+        memcpy(tetrominoactuel, tetromino_J, sizeof(tetromino_J));
+        break;
+    }
+    
 }
-}
+
 void main(){
-int x, y,key;
+char x, y,key,i;
 cls(32,1,0);
 
 while (1)
 {
 	/* code */
 	key = getk();
-	if (key=='r') {rotate_tetromino(tetrominoactuel);poke(12288,255);msleep(50);poke(12288,32);}
+	if (key=='r') {rotate_tetromino(tetrominoactuel);msleep(100);}
+    if (key=='t') {i++;if (i==7){i=0;}changetetro(i);msleep(100);}
 	for (y = 0; y < 4; y++) {
 		for (x = 0; x < 4; x++) {
 		if (tetrominoactuel[x][y]==1) {affchr(x,y,135,1,4);} else {affchr(x,y,32,1,0);}
