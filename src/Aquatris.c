@@ -140,30 +140,14 @@ void rotate_tetros()// Rotation du tetromono actuel
     }
     if (colision(joueurx,joueury)||joueury+actuel.hauteur>19||joueurx+actuel.largeur>11){memcpy(&actuel, &temporaire, sizeof(tetros));}
     else {efface(joueury-1,joueury+temporaire.hauteur-1,false);msleep(100);}    
-}*/
-void gene_prochain_teros() // chosit aleatoirement le prochaint tetrominos
-{
-    switch (rand() % 7)
-    {
-    case 0:
-        memcpy(&prochain, &I, sizeof(tetros));break;
-    
-    case 1:
-        memcpy(&prochain, &O, sizeof(tetros));break;
-    case 2:
-        memcpy(&prochain, &T, sizeof(tetros));break;
-    case 3:
-        memcpy(&prochain, &S, sizeof(tetros));break;
-    case 4:
-        memcpy(&prochain, &Z, sizeof(tetros));break;
-    case 5:
-        memcpy(&prochain, &L, sizeof(tetros));break;
-    case 6:
-        memcpy(&prochain, &J, sizeof(tetros));break;
-    default:
-        break;
-    }
 }
+void gene_prochain_teros() // choisit aléatoirement le prochain tetrominos
+{
+    static const tetros* tetrominos[] = {&I, &O, &T, &S, &Z, &L, &J};
+    unsigned char rand_index = rand() % 7;
+    memcpy(&prochain, tetrominos[rand_index], sizeof(tetros));
+}
+
 void changetetro()// spawn un nouveau tetrominos en haut de la zone de jeu
 {   
     if (prochain.hauteur==0){gene_prochain_teros();}
@@ -233,6 +217,7 @@ void verif_ligne()// verifier si une ou plusieur ligne son complete
     // score selon le nombre de ligne
     nbligne=nbligne+temp2;aff_score(temp2);
 }
+
 void main(){
 debut:
 char key;
