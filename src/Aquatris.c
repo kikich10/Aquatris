@@ -157,8 +157,8 @@ void changetetro()// spawn un nouveau tetrominos en haut de la zone de jeu
     gene_prochain_teros();
     for (char y = 0; y < 4; y++) {
 		for (char x = 0; x < 4; x++) {
-		        if (prochain.forme[y][x]==1) {affchr(x+32,y+2,196,15,prochain.couleur);}
-                else {affchr(x+32,y+2,32,15,0);}
+		        if (prochain.forme[y][x]==1) {affchr(x+32,y+11,196,15,prochain.couleur);}
+                else {affchr(x+32,y+11,32,15,0);}
             }
             }
 		}
@@ -174,17 +174,13 @@ void dercojeu()//desine le decor du jeu.
 {
     cls(208,15,0);print(3,22,"POSSAMAI",7,0);print(2,23,"Christophe",7,0);
     ligne(14,4,14,23,195,0,14);ligne(25,4,25,23,151,14,0);
-    cadre(13,0,14,4);
-    print(-1,1,"AQUATRIS",7,14);print(-1,2,"2023",15,14);affchr(14,4,142,14,0);affchr(25,4,158,14,0);
+    cadre(12,0,16,4);print(-1,1,"AQUATRIS",7,14);print(-1,2,"2023",15,14);
+    affchr(14,4,142,14,0);affchr(25,4,158,14,0);
     for (temp1=4;temp1!=24;temp1++){print(-1,temp1,"          ",14,0);}
-    cadre(30,0,8,8);
-    //ligne(32,1,35,1,163,14,0);ligne(32,6,35,6,240,14,0);
-    //ligne(31,2,31,5,181,14,0);ligne(36,2,36,5,234,14,0);affchr(31,1,183,14,0);affchr(36,1,235,14,0);affchr(31,6,245,14,0);affchr(36,6,250,14,0);
-    print(32,1,"NEXT",7,14);
-    cadre(29,10,10,3);print(31,10,"SCORE:",7,14);
-    cadre(29,15,10,3);print(31,15,"LEVEL:",7,14);
-    cadre(30,20,8,3);print(32,20,"LINE",7,14);
-    
+    cadre(30,9,8,8);print(32,10,"NEXT",7,14);// prochain bloc
+    cadre(1,5,9,3);print(3,5,"SCORE",7,14);
+    cadre(1,10,9,3);print(3,10,"LEVEL",7,14);
+    cadre(1,15,9,3);print(3,15,"LINES",7,14);    
 }
 void pose_tetros() //affiche le tetrominos
 {
@@ -201,9 +197,9 @@ void aff_score(unsigned char ligne)// calcul le score et affiche score et level
 {
     if(ligne>0){score=score+((table_score[ligne]*level));}
     while (nbligne >= level * 10) {level++;}
-    sprintf(texte,"%06d", score);print(31,11,texte,7,0);
-    sprintf(texte,"%04d", level-1);print(32,16,texte,7,0);
-    sprintf(texte,"%04d", nbligne);print(32,21,texte,7,0);
+    sprintf(texte,"%05d", score);print(3,6,texte,7,0);
+    sprintf(texte,"%03d", level-1);print(4,11,texte,7,0);
+    sprintf(texte,"%03d", nbligne);print(4,16,texte,7,0);
     
 }
 void verif_ligne()// verifier si une ou plusieur ligne son complete
@@ -254,7 +250,7 @@ while (1)
 }
 //fin
 msleep(500);
-print(15,14,"GAME  OVER",1,0);    
+print(15,13,"          ",7,14);print(15,14,"GAME  OVER",7,14);print(15,15,"          ",7,14);  
 fgetc_cons();msleep(500); // attente touche
 goto debut;
 
