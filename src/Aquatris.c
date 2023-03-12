@@ -180,7 +180,7 @@ void dercojeu()//desine le decor du jeu.
     cadre(30,9,8,8);print(32,10,"NEXT",7,14);// prochain bloc
     cadre(1,5,9,3);print(3,5,"SCORE",7,14);
     cadre(1,10,9,3);print(3,10,"LEVEL",7,14);
-    cadre(1,15,9,3);print(3,15,"LINES",7,14);    
+    cadre(1,15,9,3);print(3,15,"LINES",7,14);  
 }
 void pose_tetros() //affiche le tetrominos
 {
