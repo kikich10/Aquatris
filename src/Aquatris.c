@@ -171,7 +171,7 @@ void cadre(char xpos,char ypos,char largeur, char hauteur) // desine cadre pour 
 }
 void dercojeu()//desine le decor du jeu.
 {
-    cls(208,15,0);
+    cls(208,15,0);print(3,22,"POSSAMAI",7,0);print(2,23,"Christophe",7,0);
     ligne(14,4,14,23,195,0,14);ligne(25,4,25,23,151,14,0);
     cadre(13,0,14,4);
     print(-1,1,"AQUATRIS",7,14);print(-1,2,"2023",15,14);affchr(14,4,142,14,0);affchr(25,4,158,14,0);
@@ -183,7 +183,7 @@ void dercojeu()//desine le decor du jeu.
     cadre(29,10,10,3);print(31,10,"SCORE:",7,14);
     cadre(29,15,10,3);print(31,15,"LEVEL:",7,14);
     cadre(30,20,8,3);print(32,20,"LINE",7,14);
-    print(3,22,"POSSAMAI",15,0);print(2,23,"Christophe",15,0);
+    
 }
 void pose_tetros() //affiche le tetrominos
 {
@@ -223,7 +223,9 @@ debut:
 char key;
 
 //MENU
-dercojeu();
+cls(32,15,0);
+for (char y=0;y!=22;y++){print(2,y,"          ",7,0);print(2,y+1," POSSAMAI ",7,0);print(2,y+2,"Christophe",7,0);msleep(100);}
+print(-1,12,"PRESENT",3,0);msleep(600);dercojeu();
 print(-1,12,"Ready?",3,0);
 while (1)
 {
