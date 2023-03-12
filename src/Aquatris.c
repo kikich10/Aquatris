@@ -223,9 +223,9 @@ debut:
 char key;
 
 //MENU
-cls(32,15,0);
+cls(32,15,0);print(-1,12,"PRESENT",3,0);
 for (char y=0;y!=22;y++){print(2,y,"          ",7,0);print(2,y+1," POSSAMAI ",7,0);print(2,y+2,"Christophe",7,0);msleep(100);}
-print(-1,12,"PRESENT",3,0);msleep(600);dercojeu();
+msleep(600);dercojeu();
 print(-1,12,"Ready?",3,0);
 while (1)
 {
