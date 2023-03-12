@@ -20,7 +20,7 @@ const tetros O = {2,2,3,{{1, 1},{1, 1}}};
 const tetros T = {2,3,10,{{ 1, 1, 1},{ 0, 1, 0}}};
 const tetros S = {2,3,2,{{ 0, 1, 1},{1, 1, 0}}};
 const tetros Z = {2,3,1,{{1, 1, 0},{0, 1, 1}}};
-const tetros L = {2,3,14,{{1, 1, 1},{ 1, 0, 0}}};
+const tetros L = {2,3,8,{{1, 1, 1},{ 1, 0, 0}}};
 const tetros J = {2,3,4,{{ 1, 1, 1},{0, 0, 1}}};
 // definition score
 const int table_score[]={0,40,100,300,1200};
@@ -68,16 +68,16 @@ void ligne(unsigned char xa,char ya,unsigned char xb, char yb,unsigned char cara
 			
         }
 // fonction pour afficher une chaine de caractere ASCII a une position et avec les couleurs.
-void print(signed char x,signed char y,char texte[],unsigned char encre,unsigned char fond)
-        {
-		unsigned char i=0;
-        if (x<0){x=(40-strlen(texte))/2;}
-		do
-			{
-				affchr(x+i,y,texte[i],encre,fond);
-				i++;
-			} while (texte[i]!=0);
-		}
+void print(signed char x, signed char y, char texte[], unsigned char encre, unsigned char fond) {
+    if (x < 0) {
+        x = (40 - strlen(texte)) / 2;
+    }
+    for (char* c = texte; *c != '\0'; c++) {
+        affchr(x, y, *c, encre, fond);
+        x++;
+    }
+}
+
 void colision(signed char xtest,signed char ytest) //test de colision
 {
 bool colision=false;
@@ -190,12 +190,12 @@ void dercojeu()//desine le decor du jeu.
     cls(208,15,0);
     ligne(14,4,14,23,195,0,14);ligne(25,4,25,23,151,14,0);
     cadre(13,0,14,4);
-    print(-1,1,"AQUATRIS",7,14);print(-1,2,"2023",15,14);
+    print(-1,1,"AQUATRIS",7,14);print(-1,2,"2023",15,14);affchr(14,4,142,14,0);affchr(25,4,158,14,0);
     for (temp1=4;temp1!=24;temp1++){print(-1,temp1,"          ",14,0);}
     cadre(30,0,8,8);
-    ligne(32,1,35,1,163,14,0);ligne(32,6,35,6,240,14,0);
-    ligne(31,2,31,5,181,14,0);ligne(36,2,36,5,234,14,0);affchr(31,1,183,14,0);affchr(36,1,235,14,0);affchr(31,6,245,14,0);affchr(36,6,250,14,0);
-    print(32,0,"NEXT",7,14);
+    //ligne(32,1,35,1,163,14,0);ligne(32,6,35,6,240,14,0);
+    //ligne(31,2,31,5,181,14,0);ligne(36,2,36,5,234,14,0);affchr(31,1,183,14,0);affchr(36,1,235,14,0);affchr(31,6,245,14,0);affchr(36,6,250,14,0);
+    print(32,1,"NEXT",7,14);
     cadre(29,10,10,3);print(31,10,"SCORE:",7,14);
     cadre(29,15,10,3);print(31,15,"LEVEL:",7,14);
     cadre(30,20,8,3);print(32,20,"LINE",7,14);
@@ -253,15 +253,15 @@ changetetro();
 while (1)
 {
 	key = getk();compteur++; 
-	if (compteur>30 | key=='v') {efface(joueury-1,joueury+actuel.hauteur-1,false);joueury++;compteur=0;}
+	if (compteur > 37 - (2 * level) | key=='v') {efface(joueury-1,joueury+actuel.hauteur-1,false);joueury++;compteur=0;}
     
 	if (key=='l') {rotate_tetros();}
     if (key=='c' && joueurx>1 && !colision(joueurx-1,joueury)) {efface(joueury-1,joueury+actuel.hauteur-1,false);joueurx--;}
     if (key=='b' && joueurx<(11-actuel.largeur) && !colision(joueurx+1,joueury)) {efface(joueury-1,joueury+actuel.hauteur-1,false);joueurx++;}
+    affiche_tetros();
     if (key=='p') {msleep(200);fgetc_cons();}
-	affiche_tetros();
     if (joueury>=20-actuel.hauteur || colision(joueurx,joueury+1)) {
-        if (joueury<0) {break;}
+        if (joueury<=0) {break;}
         pose_tetros();verif_ligne();changetetro();}
 }
 //fin
