@@ -9,7 +9,8 @@ zcc +aquarius -clib=ansi -lm -create-app -subtype=rom -Cz--fast -o aquatris src\
 char grille[11][21],texte[30];
 signed char	joueurx,joueury;
 unsigned char temp1,temp2;
-int compteur,score,level,nbligne;
+int compteur,level,nbligne;
+unsigned int score;
 // definition tetros
 typedef struct {char hauteur;char largeur;char couleur;char forme[4][4];} tetros;
 tetros actuel = {0,0,1,{{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}}};
@@ -23,7 +24,7 @@ const tetros Z = {2,3,1,{{1, 1, 0},{0, 1, 1}}};
 const tetros L = {2,3,8,{{1, 1, 1},{ 1, 0, 0}}};
 const tetros J = {2,3,4,{{ 1, 1, 1},{0, 0, 1}}};
 // definition score
-const int table_score[]={0,40,100,300,1200};
+const int table_score[]={0,1,4,16,32};
 // ---------------------------- FONCTIONS-----------------------------------------------------------------------------------------
 void poke( uint16_t addr, uint8_t value )// fonction poke
         {
@@ -243,8 +244,8 @@ while (1)
 	if (compteur > 37 - (2 * level) | key=='v') {efface(joueury-1,joueury+actuel.hauteur-1,false);joueury++;compteur=0;}
     
 	if (key=='l') {rotate_tetros();}
-    if (key=='c' && joueurx>1 && !colision(joueurx-1,joueury)) {efface(joueury-1,joueury+actuel.hauteur-1,false);joueurx--;}
-    if (key=='b' && joueurx<(11-actuel.largeur) && !colision(joueurx+1,joueury)) {efface(joueury-1,joueury+actuel.hauteur-1,false);joueurx++;}
+    if (key=='c' && joueurx>1 && !colision(joueurx-1,joueury)) {msleep(100);efface(joueury-1,joueury+actuel.hauteur-1,false);joueurx--;}
+    if (key=='b' && joueurx<(11-actuel.largeur) && !colision(joueurx+1,joueury)) {msleep(100);efface(joueury-1,joueury+actuel.hauteur-1,false);joueurx++;}
     affiche_tetros();
     if (key=='p') {msleep(200);fgetc_cons();}
     if (joueury>=20-actuel.hauteur || colision(joueurx,joueury+1)) {
