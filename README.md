@@ -10,6 +10,8 @@ Use "B" to move the tetrimino right
 
 Use "V" to speed up the tetrimino's descent
 
+Use "L" to turn the tetrominos
+
 Use "P" to pause the game
 
 # Compiling the code with Z88dk
